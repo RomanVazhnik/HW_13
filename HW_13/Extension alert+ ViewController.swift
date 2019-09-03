@@ -62,7 +62,7 @@ extension ViewController {
             text.placeholder = "Укажите название"
         }
         let action = UIAlertAction(title: "Посмотреть", style: .default) { (action) in
-            self.deleteAllTastsWithNameAction(with: alert.textFields?.first?.text ?? "")
+            self.findTasksAction(with: alert.textFields?.first?.text ?? "")
         }
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
         alert.addAction(action)

@@ -43,11 +43,11 @@ class ViewController: UITableViewController {
                                                             action: #selector(addButtonPressed))
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks,
                                                            target: self,
-                                                           action: #selector(deleteAllTastsWithName))
+                                                           action: #selector(findTasts))
         
     }
     
-    @objc private func deleteAllTastsWithName() {
+    @objc private func findTasts() {
         secondAlert()
     }
     
@@ -120,13 +120,16 @@ class ViewController: UITableViewController {
         }
     }
     
-    func deleteAllTastsWithNameAction(with name: String) {
+    func findTasksAction(with name: String) {
         
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
         
         do {
             fetchRequest.predicate = NSPredicate(format: "name == %@", NSString(string: name))
             let result = try managedContext.fetch(fetchRequest)
+            if result.count == 0 {
+                defaultAlert(title: "Результат", message: "Задачи с именем \(name) не найдено")
+            }
             var resultNames = ""
             for taskName in result {
                 resultNames += (taskName.name ?? "") + " "
